@@ -69,12 +69,12 @@
       <div id="color-picker" class="color-picker" style="display: none;">
         <input type="color" id="colorInput" onchange="setColor(this.value)" title="Elige un color" />
       </div>
-      <button class="sidebar-btn" id="decrease-size-btn" onclick="decreaseSize()" title="Reducir Grosor">
-        <i class="fas fa-minus"></i>
+      <button class="sidebar-btn" id="size-picker-btn" onclick="toggleSizePicker()" title="Ajustar Grosor">
+        <i class="fas fa-text-height"></i>
       </button>
-      <button class="sidebar-btn" id="increase-size-btn" onclick="increaseSize()" title="Aumentar Grosor">
-        <i class="fas fa-plus"></i>
-      </button>
+      <div id="size-picker" class="size-picker" style="display: none;">
+        <input type="range" id="sizeInput" min="1" max="10" value="3" step="1" onchange="setLineWidth(this.value)" title="Ajusta el grosor" />
+      </div>
       <button class="sidebar-btn" onclick="clearCanvas()" title="Limpiar">
         <i class="fas fa-trash"></i>
       </button>
