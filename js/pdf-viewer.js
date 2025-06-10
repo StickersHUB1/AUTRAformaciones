@@ -53,8 +53,8 @@ function createWatermarkOverlay() {
   overlay.id = 'watermark';
   Object.assign(overlay.style, {
     position: 'absolute',
-    top: '10px',
-    left: '10px',
+    top: '35px',
+    left: '575px',
     color: 'rgba(0,0,0,0.2)',
     fontSize: '16px',
     fontWeight: 'bold',
