@@ -279,12 +279,12 @@ html, body {
   visibility: visible;
 }
 
-#color-picker-btn {
+#color-picker-btn, #size-picker-btn {
   position: relative;
   border: 2px solid transparent;
 }
 
-.color-picker {
+.color-picker, .size-picker {
   position: absolute;
   bottom: calc(100% + 6px);
   left: 50%;
@@ -322,25 +322,40 @@ html, body {
   border: none;
 }
 
-#decrease-size-btn, #increase-size-btn {
-  position: relative;
+#sizeInput {
+  width: 80px;
+  height: 20px;
+  margin: 0;
+  cursor: pointer;
 }
 
-#decrease-size-btn::before, #increase-size-btn::before {
-  content: attr(data-size);
-  position: absolute;
-  top: -8px;
-  right: -4px;
-  background: rgba(171, 200, 233, 0.8);
-  color: #fff;
-  font-size: 8px;
-  padding: 1px 3px;
+#sizeInput::-webkit-slider-runnable-track {
+  height: 6px;
+  background: #ABC8E9;
   border-radius: 3px;
-  display: none;
 }
 
-#decrease-size-btn.active::before, #increase-size-btn.active::before {
-  display: block;
+#sizeInput::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+  background: #8AB4F8;
+  border-radius: 50%;
+  margin-top: -3px;
+  cursor: pointer;
+}
+
+#sizeInput::-moz-range-track {
+  height: 6px;
+  background: #ABC8E9;
+  border-radius: 3px;
+}
+
+#sizeInput::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #8AB4F8;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .sidebar-nav {
@@ -404,13 +419,17 @@ html, body {
     font-size: 11px;
   }
 
-  .color-picker {
+  .color-picker, .size-picker {
     bottom: calc(100% + 5px);
   }
 
   #colorInput {
     width: 22px;
     height: 22px;
+  }
+
+  #sizeInput {
+    width: 60px;
   }
 
   #goToPageInput {
