@@ -40,7 +40,6 @@ let annotationCache = loadCacheFromStorage();
 let formFieldsCache = loadFormFieldsFromStorage();
 const historyStack = {};
 let currentLineWidth = 3; // Grosor inicial
-const lineWidths = [1, 3, 5]; // Grosores disponibles
 
 window.onload = () => {
   waitForPDFjs(() => {
@@ -53,8 +52,8 @@ function createWatermarkOverlay() {
   overlay.id = 'watermark';
   Object.assign(overlay.style, {
     position: 'absolute',
-    top: '10px',
-    left: '10px',
+    top: '35px',
+    left: '575px',
     color: 'rgba(0,0,0,0.2)',
     fontSize: '16px',
     fontWeight: 'bold',
@@ -332,7 +331,9 @@ function toggleDrawingMode() {
 
 function toggleColorPicker() {
   const colorPicker = document.getElementById('color-picker');
+  const sizePicker = document.getElementById('size-picker');
   colorPicker.style.display = colorPicker.style.display === 'none' ? 'block' : 'none';
+  if (sizePicker.style.display === 'block') sizePicker.style.display = 'none'; // Cierra el otro modal
 }
 
 function setColor(color) {
@@ -342,49 +343,22 @@ function setColor(color) {
   }
 }
 
-function updateSizeFeedback() {
-  const decreaseBtn = document.getElementById('decrease-size-btn');
-  const increaseBtn = document.getElementById('increase-size-btn');
-  decreaseBtn.classList.remove('active');
-  increaseBtn.classList.remove('active');
-  decreaseBtn.removeAttribute('data-size');
-  increaseBtn.removeAttribute('data-size');
-
-  const currentIndex = lineWidths.indexOf(currentLineWidth);
-  if (currentIndex > 0) {
-    decreaseBtn.classList.add('active');
-    decreaseBtn.setAttribute('data-size', lineWidths[currentIndex - 1]);
-  }
-  if (currentIndex < lineWidths.length - 1) {
-    increaseBtn.classList.add('active');
-    increaseBtn.setAttribute('data-size', lineWidths[currentIndex + 1]);
-  }
+function toggleSizePicker() {
+  const sizePicker = document.getElementById('size-picker');
+  const colorPicker = document.getElementById('color-picker');
+  sizePicker.style.display = sizePicker.style.display === 'none' ? 'block' : 'none';
+  if (colorPicker.style.display === 'block') colorPicker.style.display = 'none'; // Cierra el otro modal
 }
 
-function decreaseSize() {
-  const currentIndex = lineWidths.indexOf(currentLineWidth);
-  if (currentIndex > 0) {
-    currentLineWidth = lineWidths[currentIndex - 1];
-    if (annotationCanvas) {
-      annotationCanvas.getContext('2d').lineWidth = currentLineWidth;
-    }
-    updateSizeFeedback();
+function setLineWidth(value) {
+  currentLineWidth = parseInt(value);
+  if (annotationCanvas) {
+    annotationCanvas.getContext('2d').lineWidth = currentLineWidth;
   }
+  const sizeBtn = document.getElementById('size-picker-btn');
+  sizeBtn.style.borderWidth = `${Math.min(currentLineWidth / 2, 2)}px`; // Feedback visual
+  sizeBtn.style.borderColor = '#545454';
 }
-
-function increaseSize() {
-  const currentIndex = lineWidths.indexOf(currentLineWidth);
-  if (currentIndex < lineWidths.length - 1) {
-    currentLineWidth = lineWidths[currentIndex + 1];
-    if (annotationCanvas) {
-      annotationCanvas.getContext('2d').lineWidth = currentLineWidth;
-    }
-    updateSizeFeedback();
-  }
-}
-
-// Inicializar feedback de grosor
-updateSizeFeedback();
 
 function clearCanvas() {
   if (annotationCanvas) {
