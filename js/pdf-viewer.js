@@ -27,7 +27,7 @@ class FakeLinkService {
   addLinkAttributes() {}
 }
 
-const url = 'pdfs/test.pdf';
+const url = '/pdfs/test.pdf';
 let pdfDoc = null;
 let currentPage = 1;
 let renderTask = null;
@@ -39,7 +39,7 @@ let drawingEnabled = false;
 let annotationCache = loadCacheFromStorage();
 let formFieldsCache = loadFormFieldsFromStorage();
 const historyStack = {};
-let currentLineWidth = 3; // Grosor inicial
+let currentLineWidth = 3;
 
 window.onload = () => {
   waitForPDFjs(() => {
@@ -65,7 +65,7 @@ function createWatermarkOverlay() {
 
   function updateWatermark() {
     const now = new Date().toLocaleString();
-    const userId = document.getElementById('student-id')?.textContent || 'Alumno';
+    const userId = localStorage.getItem('studentCode') || 'Sin código';
     overlay.textContent = `${userId} • ${now}`;
   }
 
@@ -333,7 +333,7 @@ function toggleColorPicker() {
   const colorPicker = document.getElementById('color-picker');
   const sizePicker = document.getElementById('size-picker');
   colorPicker.style.display = colorPicker.style.display === 'none' ? 'block' : 'none';
-  if (sizePicker.style.display === 'block') sizePicker.style.display = 'none'; // Cierra el otro modal
+  if (sizePicker.style.display === 'block') sizePicker.style.display = 'none';
 }
 
 function setColor(color) {
@@ -347,7 +347,7 @@ function toggleSizePicker() {
   const sizePicker = document.getElementById('size-picker');
   const colorPicker = document.getElementById('color-picker');
   sizePicker.style.display = sizePicker.style.display === 'none' ? 'block' : 'none';
-  if (colorPicker.style.display === 'block') colorPicker.style.display = 'none'; // Cierra el otro modal
+  if (colorPicker.style.display === 'block') colorPicker.style.display = 'none';
 }
 
 function setLineWidth(value) {
@@ -356,7 +356,7 @@ function setLineWidth(value) {
     annotationCanvas.getContext('2d').lineWidth = currentLineWidth;
   }
   const sizeBtn = document.getElementById('size-picker-btn');
-  sizeBtn.style.borderWidth = `${Math.min(currentLineWidth / 2, 2)}px`; // Feedback visual
+  sizeBtn.style.borderWidth = `${Math.min(currentLineWidth / 2, 2)}px`;
   sizeBtn.style.borderColor = '#545454';
 }
 
@@ -416,11 +416,10 @@ function downloadAnnotatedPDF() {
     const top = parseFloat(input.style.top);
     const height = parseFloat(input.style.height);
     const value = input.value || '';
-
     ctxMerged.fillText(value, left, top + height - 4);
   });
 
-  const userId = document.getElementById('student-id')?.textContent || 'Alumno';
+  const userId = localStorage.getItem('studentCode') || 'Sin código';
   const now = new Date().toLocaleString();
   ctxMerged.font = '16px Inter, sans-serif';
   ctxMerged.fillStyle = 'rgba(0,0,0,0.2)';

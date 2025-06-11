@@ -1,40 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Formación Digital - Inicio de Sesión</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AUTRA</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <header class="autra-header">
-    <div class="autra-logo">
-      <img src="autra-logo.png" alt="AUTRA Logo" />
-      <h1>AUTRA</h1>
-    </div>
-    <h2 class="autra-title">Formación Digital</h2>
-  </header>
-
-  <main class="login-container">
-    <div class="login-box">
-      <h2><i class="fas fa-lock"></i> Inicio de Sesión</h2>
-      <form id="login-form" onsubmit="handleLogin(event)">
-        <div class="input-group">
-          <label for="student-code">Código de Alumno</label>
-          <input type="text" id="student-code" name="student-code" placeholder="Ej. ALUMNO000001" required />
-        </div>
-        <div class="input-group">
-          <label for="password">Contraseña</label>
-          <input type="password" id="password" name="password" placeholder="********" required />
-        </div>
-        <button type="submit" class="login-btn"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
-      </form>
-      <p id="error-message" class="error-message" style="display: none;"></p>
-    </div>
-  </main>
-
-  <script src="js/login.js"></script>
+  <div class="login-container">
+    <img src="/autra-logo.png" alt="AUTRA Logo" class="logo">
+    <h2>Inicio de Sesión</h2>
+    <form id="login-form" onsubmit="handleLogin(event)">
+      <div class="input-group">
+        <label for="student-code">Código de Alumno:</label>
+        <input type="text" id="student-code" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" required>
+      </div>
+      <button type="submit" class="login-btn">Iniciar Sesión</button>
+      <p id="error-message" style="display: none;"></p>
+    </form>
+  </div>
+  <script src="/js/login.js"></script>
 </body>
 </html>

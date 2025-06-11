@@ -1,4 +1,3 @@
-// js/login.js
 async function handleLogin(event) {
   event.preventDefault();
   const studentCode = document.getElementById('student-code').value.trim().toUpperCase();
@@ -20,13 +19,15 @@ async function handleLogin(event) {
     const data = await response.json();
 
     if (data.success) {
-      localStorage.setItem('studentCode', studentCode);
-      window.location.href = 'index.html';
+      console.log('Login exitoso, studentCode:', data.studentCode);
+      localStorage.setItem('studentCode', data.studentCode);
+      window.location.href = '/index.html';
     } else {
       errorMessage.textContent = data.message;
       errorMessage.style.display = 'block';
     }
-  } catch {
+  } catch (error) {
+    console.error('Error en login:', error);
     errorMessage.textContent = 'Error de conexión';
     errorMessage.style.display = 'block';
   }
